@@ -22,7 +22,7 @@ function normalizeKeyMetrics(
   fmpMetrics: FMPKeyMetricsResponse[0]
 ): KeyMetrics {
   const pickNumber = (...values: Array<number | null | undefined>) =>
-    values.find((value) => typeof value === 'number');
+    values.find((value) => typeof value === 'number') ?? 0;
 
   return {
     symbol: fmpMetrics.symbol,
@@ -111,7 +111,7 @@ function normalizeFinancialRatios(
   fmpRatios: FMPFinancialRatiosResponse[0]
 ): FinancialRatios {
   const pickNumber = (...values: Array<number | null | undefined>) =>
-    values.find((value) => typeof value === 'number');
+    values.find((value) => typeof value === 'number') ?? 0;
 
   return {
     symbol: fmpRatios.symbol,
