@@ -126,7 +126,7 @@ function normalizeCashFlowStatement(
   fmpCashFlow: FMPCashFlowStatementResponse[0]
 ): CashFlowStatement {
   const pickNumber = (...values: Array<number | null | undefined>) =>
-    values.find((value) => typeof value === 'number');
+    values.find((value) => typeof value === 'number') ?? 0;
 
   return {
     date: fmpCashFlow.date,
