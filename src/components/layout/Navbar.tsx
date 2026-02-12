@@ -43,15 +43,23 @@ export function Navbar({
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-lg supports-[backdrop-filter]:bg-background/60">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4">
         {/* Left: Logo */}
-        <Link
-          href="/"
-          className="flex shrink-0 items-center gap-2 text-foreground transition-colors hover:text-foreground/80"
-        >
-          <BarChart3 className="size-6 text-primary" />
-          <span className="text-lg font-bold tracking-tight">
-            NASDAQ Insights
-          </span>
-        </Link>
+        <div className="flex shrink-0 items-center gap-2 text-foreground">
+          <Link
+            href="/"
+            className="flex items-center gap-2 transition-colors hover:text-foreground/80"
+          >
+            <BarChart3 className="size-6 text-primary" />
+            <span className="text-lg font-bold tracking-tight">
+              Nadsaq Insight by
+            </span>
+          </Link>
+          <Link
+            href="https://www.linkedin.com/in/matteoromano7/"
+            className="text-lg font-bold italic tracking-tight underline-offset-4 transition-colors hover:underline"
+          >
+            Voidworks
+          </Link>
+        </div>
 
         {/* Center: Search (desktop) */}
         <form
