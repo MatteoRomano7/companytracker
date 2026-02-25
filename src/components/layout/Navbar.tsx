@@ -57,7 +57,7 @@ export function Navbar({
             href="https://www.linkedin.com/in/matteoromano7/"
             className="text-lg font-bold italic tracking-tight underline-offset-4 transition-colors hover:underline"
           >
-            ZeroStateWorks
+            ROMMAT WORKS
           </Link>
         </div>
 
