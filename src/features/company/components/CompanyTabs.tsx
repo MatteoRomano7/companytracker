@@ -32,7 +32,7 @@ export function CompanyTabs({
       defaultValue={defaultTab}
       className={cn("w-full", className)}
     >
-      <TabsList className="w-full justify-start overflow-x-auto">
+      <TabsList className="grid w-full grid-cols-4">
         <TabsTrigger value="overview">Overview</TabsTrigger>
         <TabsTrigger value="charts">Charts</TabsTrigger>
         <TabsTrigger value="financials">Financials</TabsTrigger>

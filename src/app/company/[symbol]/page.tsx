@@ -37,60 +37,27 @@ export default function CompanyPage() {
 
   const isInWatchlist = watchlist.some((item) => item.symbol === symbol);
 
-  // Fetch all company data
+  // Fetch all company data (profile, quote, historical)
   useEffect(() => {
     const fetchCompanyData = async () => {
       setIsLoading(true);
 
       try {
-        const [
-          profileRes,
-          quoteRes,
-          historicalRes,
-          incomeRes,
-          balanceRes,
-          cashFlowRes,
-          metricsRes,
-          ratiosRes,
-        ] = await Promise.all([
+        const [profileRes, quoteRes, historicalRes] = await Promise.all([
           fetch(`/api/fmp/profile/${symbol}`),
           fetch(`/api/fmp/quote/${symbol}`),
           fetch(`/api/fmp/historical/${symbol}?period=${chartPeriod}`),
-          fetch(`/api/fmp/income-statement/${symbol}?period=${financialPeriod}&limit=5`),
-          fetch(`/api/fmp/balance-sheet/${symbol}?period=${financialPeriod}&limit=5`),
-          fetch(`/api/fmp/cash-flow/${symbol}?period=${financialPeriod}&limit=5`),
-          fetch(`/api/fmp/metrics/${symbol}?period=${financialPeriod}&limit=5`),
-          fetch(`/api/fmp/ratios/${symbol}?period=${financialPeriod}&limit=5`),
         ]);
 
-        const [
-          profileData,
-          quoteData,
-          historicalDataRes,
-          incomeData,
-          balanceData,
-          cashFlowData,
-          metricsData,
-          ratiosData,
-        ] = await Promise.all([
+        const [profileData, quoteData, historicalDataRes] = await Promise.all([
           profileRes.json(),
           quoteRes.json(),
           historicalRes.json(),
-          incomeRes.json(),
-          balanceRes.json(),
-          cashFlowRes.json(),
-          metricsRes.json(),
-          ratiosRes.json(),
         ]);
 
         setProfile(profileData || null);
         setQuote(quoteData || null);
         setHistoricalData(historicalDataRes || []);
-        setIncomeStatements(incomeData || []);
-        setBalanceSheets(balanceData || []);
-        setCashFlows(cashFlowData || []);
-        setKeyMetrics(metricsData || []);
-        setRatios(ratiosData || []);
       } catch (error) {
         console.error("Error fetching company data:", error);
       } finally {
@@ -99,7 +66,50 @@ export default function CompanyPage() {
     };
 
     fetchCompanyData();
-  }, [symbol, chartPeriod, financialPeriod]);
+  }, [symbol, chartPeriod]);
+
+  // Fetch financial data separately (income, balance, cash flow, metrics, ratios)
+  // This avoids resetting the active tab when switching annual/quarterly
+  useEffect(() => {
+    const fetchFinancialData = async () => {
+      try {
+        const [incomeRes, balanceRes, cashFlowRes, metricsRes, ratiosRes] =
+          await Promise.all([
+            fetch(`/api/fmp/income-statement/${symbol}?period=${financialPeriod}&limit=5`),
+            fetch(`/api/fmp/balance-sheet/${symbol}?period=${financialPeriod}&limit=5`),
+            fetch(`/api/fmp/cash-flow/${symbol}?period=${financialPeriod}&limit=5`),
+            fetch(`/api/fmp/metrics/${symbol}?period=${financialPeriod}&limit=5`),
+            fetch(`/api/fmp/ratios/${symbol}?period=${financialPeriod}&limit=5`),
+          ]);
+
+        const [
+          incomeData,
+          balanceData,
+          cashFlowData,
+          metricsData,
+          ratiosData,
+        ] = await Promise.all([
+          incomeRes.json(),
+          balanceRes.json(),
+          cashFlowRes.json(),
+          metricsRes.json(),
+          ratiosRes.json(),
+        ]);
+
+        setIncomeStatements(incomeData || []);
+        setBalanceSheets(balanceData || []);
+        setCashFlows(cashFlowData || []);
+        setKeyMetrics(metricsData || []);
+        setRatios(ratiosData || []);
+      } catch (error) {
+        console.error("Error fetching financial data:", error);
+      }
+    };
+
+    if (!isLoading) {
+      fetchFinancialData();
+    }
+  }, [symbol, financialPeriod, isLoading]);
 
   // Refetch historical data when period changes
   useEffect(() => {
