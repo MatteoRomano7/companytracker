@@ -157,6 +157,10 @@ export default function CompanyPage() {
   const latestRatios = ratios[0];
   const latestCashFlow = cashFlows[0];
 
+  // Helper: treat 0 from missing API data as "no data" for fallback chain
+  const apiValue = (v: number | null | undefined): number | undefined =>
+    v || undefined;
+
   const sharesOutstanding =
     latestIncome?.weightedAverageSharesOutstanding ??
     latestIncome?.weightedAverageSharesOutstandingDiluted ??
@@ -169,13 +173,13 @@ export default function CompanyPage() {
       : undefined);
   const peRatio =
     (quote?.price && eps && eps > 0 ? quote.price / eps : undefined) ??
-    latestMetrics?.peRatio ??
+    apiValue(latestMetrics?.peRatio) ??
     quote?.pe;
   const revenuePerShare =
     (latestIncome?.revenue && sharesOutstanding
       ? latestIncome.revenue / sharesOutstanding
       : undefined) ??
-    latestMetrics?.revenuePerShare;
+    apiValue(latestMetrics?.revenuePerShare);
   const bookValuePerShare =
     latestBalance?.totalStockholdersEquity && sharesOutstanding
       ? latestBalance.totalStockholdersEquity / sharesOutstanding
@@ -184,17 +188,17 @@ export default function CompanyPage() {
     (quote?.price && bookValuePerShare && bookValuePerShare > 0
       ? quote.price / bookValuePerShare
       : undefined) ??
-    latestMetrics?.pbRatio;
+    apiValue(latestMetrics?.pbRatio);
   const roe =
     (latestIncome?.netIncome && latestBalance?.totalStockholdersEquity
       ? latestIncome.netIncome / latestBalance.totalStockholdersEquity
       : undefined) ??
-    latestMetrics?.roe;
+    apiValue(latestMetrics?.roe);
   const debtToEquity =
     (latestBalance?.totalLiabilities && latestBalance?.totalStockholdersEquity
       ? latestBalance.totalLiabilities / latestBalance.totalStockholdersEquity
       : undefined) ??
-    latestRatios?.debtEquityRatio;
+    apiValue(latestRatios?.debtEquityRatio);
   const computedMarketCap =
     quote?.marketCap ??
     (quote?.price && sharesOutstanding
