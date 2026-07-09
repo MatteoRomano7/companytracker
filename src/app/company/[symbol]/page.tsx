@@ -158,43 +158,49 @@ export default function CompanyPage() {
   const latestCashFlow = cashFlows[0];
 
   const sharesOutstanding =
-    quote?.sharesOutstanding ??
     latestIncome?.weightedAverageSharesOutstanding ??
-    latestIncome?.weightedAverageSharesOutstandingDiluted;
+    latestIncome?.weightedAverageSharesOutstandingDiluted ??
+    quote?.sharesOutstanding;
   const eps =
-    latestMetrics?.netIncomePerShare ??
+    latestIncome?.eps ??
     quote?.eps ??
     (latestIncome?.netIncome && sharesOutstanding
       ? latestIncome.netIncome / sharesOutstanding
       : undefined);
   const peRatio =
+    (quote?.price && eps && eps > 0 ? quote.price / eps : undefined) ??
     latestMetrics?.peRatio ??
-    quote?.pe ??
-    (quote?.price && eps ? quote.price / eps : undefined);
+    quote?.pe;
   const revenuePerShare =
-    latestMetrics?.revenuePerShare ??
     (latestIncome?.revenue && sharesOutstanding
       ? latestIncome.revenue / sharesOutstanding
-      : undefined);
+      : undefined) ??
+    latestMetrics?.revenuePerShare;
   const bookValuePerShare =
     latestBalance?.totalStockholdersEquity && sharesOutstanding
       ? latestBalance.totalStockholdersEquity / sharesOutstanding
       : undefined;
   const pbRatio =
-    latestMetrics?.pbRatio ??
-    (quote?.price && bookValuePerShare
+    (quote?.price && bookValuePerShare && bookValuePerShare > 0
       ? quote.price / bookValuePerShare
-      : undefined);
+      : undefined) ??
+    latestMetrics?.pbRatio;
   const roe =
-    latestMetrics?.roe ??
     (latestIncome?.netIncome && latestBalance?.totalStockholdersEquity
       ? latestIncome.netIncome / latestBalance.totalStockholdersEquity
-      : undefined);
+      : undefined) ??
+    latestMetrics?.roe;
   const debtToEquity =
-    latestRatios?.debtEquityRatio ??
     (latestBalance?.totalLiabilities && latestBalance?.totalStockholdersEquity
       ? latestBalance.totalLiabilities / latestBalance.totalStockholdersEquity
-      : undefined);
+      : undefined) ??
+    latestRatios?.debtEquityRatio;
+  const computedMarketCap =
+    quote?.marketCap ??
+    (quote?.price && sharesOutstanding
+      ? quote.price * sharesOutstanding
+      : undefined) ??
+    profile?.marketCap;
   const investingCashFlow =
     latestCashFlow?.netCashUsedForInvestingActivities ??
     (latestCashFlow
@@ -217,7 +223,7 @@ export default function CompanyPage() {
     },
     {
       label: "Market Cap",
-      value: formatBillions(profile.marketCap ?? latestMetrics?.marketCap),
+      value: formatBillions(computedMarketCap),
     },
     {
       label: "Revenue per Share",
@@ -418,7 +424,7 @@ export default function CompanyPage() {
         price={quote.price}
         change={quote.change}
         changePercent={quote.changesPercentage}
-        marketCap={profile.marketCap}
+        marketCap={computedMarketCap}
         yearLow={quote.yearLow}
         yearHigh={quote.yearHigh}
         isInWatchlist={isInWatchlist}
