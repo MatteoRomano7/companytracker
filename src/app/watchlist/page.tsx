@@ -34,20 +34,20 @@ export default function WatchlistPage() {
   return (
     <PageContainer>
       <div className="mb-8">
-        <h1 className="mb-2 text-3xl font-bold text-gray-900 dark:text-white">
+        <h1 className="mb-2 text-3xl font-bold text-foreground">
           My Watchlist
         </h1>
-        <p className="text-gray-600 dark:text-gray-300">
+        <p className="text-muted-foreground">
           Track and manage your favorite companies
         </p>
       </div>
 
       {!isLoading && items.length === 0 ? (
-        <div className="rounded-lg border border-gray-200 bg-gray-50 p-12 text-center dark:border-gray-700 dark:bg-gray-800">
-          <p className="mb-4 text-gray-600 dark:text-gray-300">
+        <div className="rounded-lg border border-border/40 bg-card p-12 text-center">
+          <p className="mb-4 text-muted-foreground">
             Your watchlist is empty
           </p>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-sm text-muted-foreground/70">
             Search for companies and add them to your watchlist to get started
           </p>
         </div>

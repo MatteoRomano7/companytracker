@@ -59,18 +59,18 @@ function SearchContent() {
       </div>
 
       {!query ? (
-        <div className="rounded-lg border border-gray-200 bg-gray-50 p-12 text-center dark:border-gray-700 dark:bg-gray-800">
-          <p className="text-gray-600 dark:text-gray-300">
+        <div className="rounded-lg border border-border/40 bg-card p-12 text-center">
+          <p className="text-muted-foreground">
             Enter a company name or ticker symbol to search
           </p>
         </div>
       ) : (
         <>
           <div className="mb-4">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+            <h2 className="text-2xl font-bold text-foreground">
               Search Results
               {results.length > 0 && (
-                <span className="ml-2 text-base font-normal text-gray-500">
+                <span className="ml-2 text-base font-normal text-muted-foreground">
                   ({results.length} {results.length === 1 ? "result" : "results"})
                 </span>
               )}
@@ -90,8 +90,8 @@ export default function SearchPage() {
       fallback={
         <PageContainer>
           <div className="animate-pulse space-y-4">
-            <div className="h-12 rounded-lg bg-gray-200 dark:bg-gray-700" />
-            <div className="h-64 rounded-lg bg-gray-200 dark:bg-gray-700" />
+            <div className="h-12 rounded-lg bg-secondary" />
+            <div className="h-64 rounded-lg bg-secondary" />
           </div>
         </PageContainer>
       }

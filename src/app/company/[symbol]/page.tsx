@@ -137,8 +137,8 @@ export default function CompanyPage() {
     return (
       <PageContainer>
         <div className="animate-pulse space-y-8">
-          <div className="h-32 rounded-lg bg-gray-200 dark:bg-gray-700" />
-          <div className="h-96 rounded-lg bg-gray-200 dark:bg-gray-700" />
+          <div className="h-32 rounded-lg bg-secondary" />
+          <div className="h-96 rounded-lg bg-secondary" />
         </div>
       </PageContainer>
     );
@@ -464,7 +464,7 @@ export default function CompanyPage() {
           financialsContent={
             <div className="space-y-8">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                <h3 className="text-lg font-semibold text-foreground">
                   Financial Statements
                 </h3>
                 <PeriodToggle period={financialPeriod} onPeriodChange={setFinancialPeriod} />
@@ -486,7 +486,7 @@ export default function CompanyPage() {
           }
           metricsContent={
             <div className="space-y-6">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+              <h3 className="text-lg font-semibold text-foreground">
                 Key Metrics & Ratios
               </h3>
               <MetricsGrid metrics={metricsGridData} isLoading={false} />

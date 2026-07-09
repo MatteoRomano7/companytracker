@@ -81,10 +81,10 @@ export function MetricsGrid({
                 {metric.value}
               </span>
               {metric.trend === "up" && (
-                <TrendingUp className="size-4 text-emerald-600 dark:text-emerald-400" />
+                <TrendingUp className="size-4 text-emerald-400" />
               )}
               {metric.trend === "down" && (
-                <TrendingDown className="size-4 text-red-600 dark:text-red-400" />
+                <TrendingDown className="size-4 text-red-400" />
               )}
             </div>
           </CardContent>

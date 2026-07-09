@@ -55,7 +55,7 @@ export function CompanyCard({
 
   return (
     <Link href={`/company/${encodeURIComponent(symbol)}`} className="block">
-      <Card className="group cursor-pointer transition-all duration-200 hover:shadow-md hover:border-primary/30 dark:hover:border-primary/20">
+      <Card className="group cursor-pointer transition-all duration-200 hover:shadow-md hover:border-primary/30">
         <CardHeader className="pb-0">
           <div className="flex items-start justify-between gap-2">
             <div className="min-w-0">
@@ -82,8 +82,8 @@ export function CompanyCard({
               className={cn(
                 "flex items-center gap-1 text-sm font-medium tabular-nums",
                 isPositive
-                  ? "text-emerald-600 dark:text-emerald-400"
-                  : "text-red-600 dark:text-red-400"
+                  ? "text-emerald-400"
+                  : "text-red-400"
               )}
             >
               {isPositive ? (

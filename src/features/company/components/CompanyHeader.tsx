@@ -72,7 +72,7 @@ export function CompanyHeader({
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex items-center gap-4">
           {image && (
-            <div className="flex size-14 shrink-0 items-center justify-center overflow-hidden rounded-xl border bg-white p-1.5 shadow-sm dark:bg-muted">
+            <div className="flex size-14 shrink-0 items-center justify-center overflow-hidden rounded-xl border bg-card p-1.5">
               <Image
                 src={image}
                 alt={`${companyName} logo`}
@@ -122,8 +122,8 @@ export function CompanyHeader({
               className={cn(
                 "flex items-center gap-1 text-base font-medium tabular-nums",
                 isPositive
-                  ? "text-emerald-600 dark:text-emerald-400"
-                  : "text-red-600 dark:text-red-400"
+                  ? "text-emerald-400"
+                  : "text-red-400"
               )}
             >
               {isPositive ? (

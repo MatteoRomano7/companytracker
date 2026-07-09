@@ -85,7 +85,7 @@ export function WatchlistItem({
               size="icon-xs"
               onClick={() => onRemove?.(item.id)}
               aria-label={`Remove ${item.symbol} from watchlist`}
-              className="text-muted-foreground hover:text-red-600 dark:hover:text-red-400"
+              className="text-muted-foreground hover:text-destructive"
             >
               <Trash2 className="size-3.5" />
             </Button>
